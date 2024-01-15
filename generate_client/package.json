@@ -1,0 +1,25 @@
+{
+	"name": "generate_client",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"autoprefixer": "^10.4.16",
+		"pinia": "^2.1.7",
+		"postcss": "^8.4.32",
+		"swiper": "^11.0.5",
+		"tailwindcss": "^3.4.0",
+		"vue": "^3.3.11",
+		"vue-router": "^4.2.5"
+	},
+	"devDependencies": {
+		"@iconify/vue": "^4.1.1",
+		"@vitejs/plugin-vue": "^4.5.2",
+		"vite": "^5.0.10"
+	}
+}
