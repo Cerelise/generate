@@ -107,16 +107,25 @@ function navToggle() {
 			<div
 				class="flex flex-col items-center justify-center w-full space-y-6 font-bold text-white rounded-sm"
 			>
-				<a href="#" class="w-full text-center">首页</a>
-				<a href="#" class="w-full text-center">修复图片</a>
-				<a href="#" class="w-full text-center">历史记录</a>
-				<a href="#" class="w-full text-center">下载</a>
-				<!-- <a href="#" class="w-full pt-6 border-t border-gray-400 text-center"
-					>登录/注册</a
-				> -->
-				<a href="#" class="w-full py-3 text-center rounded-full bg-cyan"
-					>登录/注册</a
+				<router-link to="/" class="w-full text-center">首页</router-link>
+				<router-link to="/repair" class="w-full text-center"
+					>修复图片</router-link
 				>
+				<router-link to="/history" class="w-full text-center"
+					>历史记录</router-link
+				>
+				<router-link to="/download" class="w-full text-center"
+					>下载</router-link
+				>
+				<div v-if="userStore.user.isAuthenticated" style="display: none"></div>
+				<div v-else>
+					<router-link
+						to="/login"
+						class="w-full py-3 text-center rounded-full bg-cyan"
+					>
+						登录/注册
+					</router-link>
+				</div>
 			</div>
 		</div>
 	</nav>

@@ -2,48 +2,24 @@
 import { Icon } from "@iconify/vue";
 import { useUserStore } from "@/stores/user";
 import useAxios from "@/composables/useAxios";
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 
 const axios = useAxios();
 const userStore = useUserStore();
+const histories = ref([]);
 
-function getData() {
+async function getData() {
 	let user_id = userStore.user.id;
-	axios.get(`/generate/${user_id}`).then((res) => {
-		console.log(res);
+	console.log(user_id);
+	await axios.get(`/generate/${user_id}`).then((res) => {
+		histories.value = res;
+		console.log(histories.value);
 	});
 }
 
 onMounted(() => {
 	getData();
 });
-
-const histories = [
-	{
-		pic: "/img/295.png",
-		pic1: "/img/295.png",
-		name: "pic1",
-		created_by: "Cerelise",
-		status: "success",
-		created_at: "24/1/9",
-	},
-	{
-		pic: "/img/323.png",
-		pic1: "/img/323.png",
-		name: "pic2",
-		created_by: "Cerelise",
-		status: "failed",
-		created_at: "24/1/9",
-	},
-	{
-		pic: "/img/306.png",
-		pic1: "/img/306.png",
-		name: "pic3",
-		created_by: "Cerelise",
-		status: "success",
-		created_at: "24/1/9",
-	},
-];
 </script>
 
 <template>
@@ -68,83 +44,108 @@ const histories = [
 		</div>
 
 		<div class="overflow-auto">
-			<table
-				class="mx-auto mb-5 border-t border-gray-200 md:w-[60vw] lg:w-[80vw] rounded-lg shadow"
-			>
-				<thead>
-					<tr
-						class="text-sm font-medium text-gray-700 border-b-2 border-gray-300 mx-auto"
-					>
-						<th
-							class="whitespace-nowrap p-3 w-[30vw] text-center font-semibold tracking-wide"
-						>
-							picture
+			<table class="max-w-5xl mx-auto table-auto">
+				<thead class="justify-between">
+					<tr class="bg-[#f3f4f6]">
+						<th class="px-16 py-2">
+							<span class="font-semibold">Picture</span>
 						</th>
-						<th class="whitespace-nowrap p-3 text-center">Name</th>
-						<th
-							class="whitespace-nowrap p-3 text-center font-semibold tracking-wide"
-						>
-							Author
+
+						<th class="px-16 py-2">
+							<span class="font-semibold">Name</span>
 						</th>
-						<th
-							class="whitespace-nowrap p-3 text-center font-semibold tracking-wide"
-						>
-							Status
+
+						<th class="px-16 py-2">
+							<span class="font-semibold">NewPic</span>
 						</th>
-						<th
-							class="whitespace-nowrap p-3 text-center font-semibold tracking-wide"
-						>
-							<Icon icon="mdi:filter" />
+
+						<th class="px-16 py-2">
+							<span class="font-semibold">status</span>
+						</th>
+
+						<th class="px-16 py-2">
+							<span class="font-semibold">Date</span>
+						</th>
+
+						<th class="px-16 py-2">
+							<span class="font-semibold">Setting</span>
 						</th>
 					</tr>
 				</thead>
-
-				<tbody>
+				<tbody class="bg-gray-200">
 					<tr
 						v-for="history in histories"
-						class="hover:bg-slate-200 transition-colors group"
+						class="bg-white border-b-2 border-gray-200 hover:bg-slate-200 transition-colors group"
 					>
-						<td
-							class="whitespace-nowrap flex gap-x-4 justify-center items-center py-4"
-						>
+						<td class="px-4 py-2 flex flex-row items-center">
 							<img
-								:src="history.pic"
+								class="h-18 w-18 object-cover"
+								:src="history.picture"
 								alt=""
-								class="w-60 aspect-[3/2] rounded-lg object-cover border border-gray-200"
 							/>
-							<!-- <img
-								:src="history.pic1"
+						</td>
+
+						<td>
+							<span class="px-16 py-2 font-semibold">{{ history.name }}</span>
+						</td>
+
+						<td class="px-4 py-2 flex flex-row items-center">
+							<img
+								class="h-15 w-15 object-cover"
+								:src="history.result"
 								alt=""
-								class="w-60 aspect-[3/2] rounded-lg object-cover border border-gray-200"
-							/> -->
+							/>
 						</td>
-						<td class="whitespace-nowrap font-medium text-center">
-							<div>
-								<a href="#" class="text-lg font-semibold text-gray-700">
-									{{ history.name }}
-								</a>
-							</div>
-						</td>
-						<td class="whitespace-nowrap font-medium text-center">
-							{{ history.created_by }}
-						</td>
-						<td class="whitespace-nowrap font-medium text-center">
-							{{ history.status }}
-						</td>
-						<td class="whitespace-nowrap">
-							<span class="inline-block w-20 group-hover:hidden">
-								{{ history.created_at }}
-							</span>
+
+						<td class="px-16 py-2">
 							<div
-								class="hidden group-hover:flex group-hover:w-20 group-hover:items-center group-hover:text-gray-500 group-hover:gap-x-2"
+								v-if="history.is_modify == true"
+								class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md"
 							>
-								<button class="p-2 hover:rounded-md hover:bg-gray-200">
-									<Icon icon="mdi:edit" class="w-6 h-6 fill-current" />
-								</button>
-								<button class="p-2 hover:rounded-md hover:bg-gray-200">
-									<Icon class="w-6 h-6 fill-current" icon="mdi:trash" />
-								</button>
+								<span>success</span>
 							</div>
+							<div
+								v-else
+								class="relative grid items-center text-center font-sans font-bold uppercase whitespace-nowrap select-none bg-[#ef4444] text-[#7f1d1d] py-1 px-2 text-xs rounded-md"
+								style="opacity: 1"
+							>
+								<span>failed</span>
+							</div>
+						</td>
+						<td class="px-16 py-2">
+							<span>{{ history.created_at.split("T")[0] }}</span>
+						</td>
+
+						<td class="px-16 py-2">
+							<span class="text-yellow-500 flex">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-5 w-5 text-green-700 mx-2"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+								>
+									<path
+										d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+									/>
+									<path
+										fill-rule="evenodd"
+										d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-5 w-5 text-red-700"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</span>
 						</td>
 					</tr>
 				</tbody>

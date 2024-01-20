@@ -60,7 +60,7 @@ function picUpload() {
 								ref="plus"
 								style="
 									font-size: 150px;
-									color: #41a48d;
+									color: #58d2b6;
 									align-content: center;
 									justify-content: center;
 									width: 100%;

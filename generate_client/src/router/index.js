@@ -6,6 +6,7 @@ import DownloadView from "@/views/DownloadView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
+// import TestView from "@/views/TestView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
 			name: "editprofile",
 			component: EditProfileView,
 		},
+		// {
+		// 	path: "/test",
+		// 	name: "test",
+		// 	component: TestView,
+		// },
 	],
 });
 
