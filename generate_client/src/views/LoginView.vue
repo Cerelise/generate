@@ -1,6 +1,42 @@
 <script setup>
-import { Icon } from "@iconify/vue";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "../stores/user";
+import useAxios from "../composables/useAxios";
+
+const userStore = useUserStore();
+const router = useRouter();
+const axios = useAxios();
+
+const user = reactive({
+	email: "",
+	password: "",
+});
+
+async function signup() {
+	const userForm = new FormData();
+	userForm.append("email", user.email);
+	userForm.append("password", user.password);
+	console.log(userForm);
+	await axios.post(`auth/signup/`, userForm).then((res) => {
+		console.log(res);
+		if ((res.message = "User Created Successfully")) {
+			router.push({ name: "login" });
+		}
+	});
+}
+
+async function login() {
+	const userForm = new FormData();
+	userForm.append("email", user.email);
+	userForm.append("password", user.password);
+	await axios.post(`auth/login/`, userForm).then((res) => {
+		console.log(res);
+		userStore.setToken(res.tokens.access);
+		userStore.initStore();
+		router.push({ name: "home" });
+	});
+}
 
 const box = ref(null);
 
@@ -17,24 +53,23 @@ const toLogin = () => {
 	<div class="container mx-auto p-6 lg:flex-row">
 		<div class="box" ref="box">
 			<div class="form-container sign-up">
-				<form>
+				<div class="form">
 					<h1>创建账号</h1>
 					<span>请补充下面的信息</span>
-					<input type="text" placeholder="昵称" />
-					<input type="email" placeholder="Email" />
-					<input type="password" placeholder="密码" />
-					<button>注册</button>
-				</form>
+					<input type="email" placeholder="Email" v-model="user.email" />
+					<input type="password" placeholder="密码" v-model="user.password" />
+					<button @click="signup">注 册</button>
+				</div>
 			</div>
 			<div class="form-container sign-in">
-				<form>
+				<div class="form">
 					<h1>登录</h1>
 					<span>欢迎使用画容！</span>
-					<input type="email" placeholder="Email" />
-					<input type="password" placeholder="密码" />
+					<input type="email" v-model="user.email" placeholder="Email" />
+					<input type="password" v-model="user.password" placeholder="密码" />
 					<a href="#">忘记密码？</a>
-					<button>登录</button>
-				</form>
+					<button @click="login">登 录</button>
+				</div>
 			</div>
 			<div class="toggle-container">
 				<div class="toggle">
@@ -111,7 +146,7 @@ const toLogin = () => {
 	border-color: #fff;
 }
 
-.box form {
+.box .form {
 	background-color: #fff;
 	display: flex;
 	align-items: center;

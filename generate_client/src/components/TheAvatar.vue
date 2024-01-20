@@ -1,9 +1,7 @@
 <template>
-	<img :src="src || defaultAvatar" class="avatar" />
+	<img :src="src" class="avatar" />
 </template>
 <script setup>
-import defaultAvatar from "../assets/avatarDefault.png";
-
 defineProps({
 	src: String,
 	width: {

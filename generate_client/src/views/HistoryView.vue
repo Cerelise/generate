@@ -1,5 +1,22 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+import { useUserStore } from "@/stores/user";
+import useAxios from "@/composables/useAxios";
+import { onMounted } from "vue";
+
+const axios = useAxios();
+const userStore = useUserStore();
+
+function getData() {
+	let user_id = userStore.user.id;
+	axios.get(`/generate/${user_id}`).then((res) => {
+		console.log(res);
+	});
+}
+
+onMounted(() => {
+	getData();
+});
 
 const histories = [
 	{
@@ -61,7 +78,7 @@ const histories = [
 						<th
 							class="whitespace-nowrap p-3 w-[30vw] text-center font-semibold tracking-wide"
 						>
-							Original -> Repairred
+							picture
 						</th>
 						<th class="whitespace-nowrap p-3 text-center">Name</th>
 						<th
@@ -95,11 +112,11 @@ const histories = [
 								alt=""
 								class="w-60 aspect-[3/2] rounded-lg object-cover border border-gray-200"
 							/>
-							<img
+							<!-- <img
 								:src="history.pic1"
 								alt=""
 								class="w-60 aspect-[3/2] rounded-lg object-cover border border-gray-200"
-							/>
+							/> -->
 						</td>
 						<td class="whitespace-nowrap font-medium text-center">
 							<div>

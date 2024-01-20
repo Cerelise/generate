@@ -1,26 +1,37 @@
 <script setup>
 import TheAvatar from "@/components/TheAvatar.vue";
+import TheButton from "@/components/TheButton.vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
+
+const userStore = useUserStore();
+const router = useRouter();
+
+function logout() {
+	userStore.removeToken();
+	router.push("/login");
+}
 </script>
 
 <template>
 	<section class="container mx-auto bg-gray-100">
 		<div class="flex flex-col lg:flex-row">
 			<div class="profile-photo space-y-10 mt-10 mb-20 lg:mt-16 lg:w-1/2">
-				<TheAvatar :width="186" :height="186" />
+				<TheAvatar :src="userStore.user.avatar" :width="186" :height="186" />
 			</div>
 			<div
 				class="profile text-xl text-center lg:max-w-md lg:mt-12 lg:text-left"
 			>
 				<p class="name flex justify-center gap-5 lg:justify-start">
-					<span>Cerelise</span>
+					<span>{{ userStore.user.username }}</span>
 					<router-link to="/editprofile">编辑个人资料</router-link>
+					<TheButton @click="logout">退出登录</TheButton>
 				</p>
-				<p class="handle">@cerelise_wong</p>
+				<p class="handle">{{ userStore.user.email }}</p>
 				<div class="description text-center mx-auto lg:text-left lg:mx-0">
-					Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum
-					dolor sit amet. Lorem ipsum dolor sit amet.
+					{{ userStore.user.description }}
 				</div>
-				<p class="my-5">github.com</p>
+				<p class="my-5">{{ userStore.user.phone }}</p>
 			</div>
 		</div>
 	</section>
