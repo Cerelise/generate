@@ -63,9 +63,9 @@ class PictureListCreateView(APIView):
             # /generate_server/
             # 处理图片
             # 处理后的图片 读取这个路径
-            handle_img = open("media/res/86.png","rb")
+            handle_img = open(f"media/res/{image_name}","rb")
             image_file = File(handle_img)
-            image_file.name = '86.png'
+            image_file.name = image_name
             serializer.save()
             origin = Origin.objects.filter(id=serializer.data['id']).first()
             result = Result.objects.create(modified_pic=image_file,created_by=request.user,origin=origin)

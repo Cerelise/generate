@@ -235,7 +235,7 @@ const toLogin = () => {
 	overflow: hidden;
 	transition: all 0.6s ease-in-out;
 	border-radius: 150px 0 0 100px;
-	z-index: 1000;
+	z-index: 100;
 }
 
 .box.active .toggle-container {

@@ -25,13 +25,13 @@ function logout() {
 				<p class="name flex justify-center gap-5 lg:justify-start">
 					<span>{{ userStore.user.username }}</span>
 					<router-link to="/editprofile">编辑个人资料</router-link>
-					<TheButton @click="logout">退出登录</TheButton>
 				</p>
 				<p class="handle">{{ userStore.user.email }}</p>
 				<div class="description text-center mx-auto lg:text-left lg:mx-0">
 					{{ userStore.user.description }}
 				</div>
 				<p class="my-5">{{ userStore.user.phone }}</p>
+				<TheButton @click="logout">退出登录</TheButton>
 			</div>
 		</div>
 	</section>

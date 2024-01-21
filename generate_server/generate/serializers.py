@@ -16,7 +16,7 @@ class OriginSerializer(serializers.ModelSerializer):
         fields = ('id','name','result','picture','created_at','modified_at','is_modify','created_by')
 
     def get_result(self,instance):
-        print(instance.id)
+        # print(instance.id)
         result = Result.objects.filter(origin=instance.id).first()
         if result:
            return 'http://127.0.0.1:8000/media/' + str(result.modified_pic)

@@ -121,7 +121,7 @@ function navToggle() {
 				<div v-else>
 					<router-link
 						to="/login"
-						class="w-full py-3 text-center rounded-full bg-cyan"
+						class="px-10 py-3 text-center rounded-full bg-cyan"
 					>
 						登录/注册
 					</router-link>
