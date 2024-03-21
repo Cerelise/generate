@@ -25,7 +25,7 @@ function navToggle() {
 			<div class="flex items-center space-x-10">
 				<!-- logo -->
 				<div class="space-x-2">
-					<h1 class="text-2xl font-bold">Generate</h1>
+					<h1 class="text-2xl font-bold">艺境梦旅壁画之韵</h1>
 				</div>
 				<!-- 左侧菜单 -->
 				<div class="hidden space-x-8 font-bold lg:flex">
@@ -39,6 +39,16 @@ function navToggle() {
 						to="/repair"
 						class="text-grayishViolet hover:text-veryDarkViolet"
 						>修复图片</router-link
+					>
+					<router-link
+						to="/create"
+						class="text-grayishViolet hover:text-veryDarkViolet"
+						>二次创作</router-link
+					>
+					<router-link
+						to="/share"
+						class="text-grayishViolet hover:text-veryDarkViolet"
+						>社区分享</router-link
 					>
 					<router-link
 						to="/history"
@@ -80,7 +90,7 @@ function navToggle() {
 				<div v-else>
 					<router-link
 						to="/login"
-						class="px-8 py-3 font-bold text-white bg-cyan rounded-full opacity-70"
+						class="px-8 py-3 font-bold text-white bg-cyan hover:bg-[#00cec9] rounded-full opacity-70"
 					>
 						登录/注册
 					</router-link>
@@ -110,6 +120,12 @@ function navToggle() {
 				<router-link to="/" class="w-full text-center">首页</router-link>
 				<router-link to="/repair" class="w-full text-center"
 					>修复图片</router-link
+				>
+				<router-link to="/create" class="w-full text-center"
+					>二次创作</router-link
+				>
+				<router-link to="/share" class="w-full text-center"
+					>共享社区</router-link
 				>
 				<router-link to="/history" class="w-full text-center"
 					>历史记录</router-link

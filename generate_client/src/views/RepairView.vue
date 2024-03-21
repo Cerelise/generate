@@ -26,15 +26,15 @@ function picChange(e) {
 	// plus.value.style.display = "none";
 }
 
-function picUpload() {
+async function picUpload() {
 	let formData = new FormData();
 	formData.append("picture", picture.value);
 	formData.append("is_modify", true);
-	console.log(formData);
-	axios.post("/generate/record/", formData).then((res) => {
-		console.log(res);
-		img_preview.value.src = res.modified_pic;
-		img_preview.value.display = "block";
+	await axios.post("/generate/record", formData).then((res) => {
+		setTimeout(() => {
+			img_preview.value.src = res.modified_pic;
+			img_preview.value.style.display = "block";
+		}, 4000);
 	});
 }
 </script>
@@ -43,8 +43,8 @@ function picUpload() {
 	<section class="container bg-gray-100 mx-auto pb-5">
 		<div class="flex flex-col justify-center p-4 lg:flex-row">
 			<div class="flex flex-col mb-24 mx-auto lg:w-1/2 lg:mb-0">
-				<h1 class="text-2xl text-center font-bold mb-5 lg:text-4xl xl:mb-10">
-					Original
+				<h1 class="text-2xl text-center font-bold mb-5 lg:text-4xl xl:mb-5">
+					原始图像
 				</h1>
 				<div class="flex justify-center">
 					<div class="rounded-lg bg-slate-400 shadow-lg">
@@ -71,7 +71,7 @@ function picUpload() {
 					</div>
 				</div>
 				<button
-					class="w-1/3 h-[50px] mt-5 mx-auto px-3 py-1 shadow-lg shadow-gray-500/50 bg-cyan text-white rounded-lg text-[15px] cursor-pointer active:scale-[.97]"
+					class="w-1/3 h-[50px] mt-5 mx-auto px-3 py-1 shadow-lg shadow-gray-500/50 bg-cyan text-white rounded-lg text-[15px] cursor-pointer active:scale-[.97] hover:bg-[#81ecec]"
 					@click="picUpload"
 				>
 					开 始 修 复
@@ -88,8 +88,8 @@ function picUpload() {
 				</div>
 			</div>
 			<div class="flex flex-col mb-24 mx-auto lg:mb-0 lg:w-1/2">
-				<h1 class="text-2xl text-center font-bold mb-5 lg:text-4xl xl:mb-10">
-					Repaired
+				<h1 class="text-2xl text-center font-bold mb-5 lg:text-4xl xl:mb-5">
+					特色图像
 				</h1>
 				<div class="flex justify-center">
 					<div class="rounded-lg bg-slate-400 shadow-lg">
@@ -107,7 +107,7 @@ function picUpload() {
 					</div>
 				</div>
 				<button
-					class="w-1/3 h-[50px] mt-5 mx-auto px-3 py-1 shadow-lg shadow-gray-500/50 bg-cyan text-white rounded-lg text-[15px] cursor-pointer active:scale-[.97]"
+					class="w-1/3 h-[50px] mt-5 mx-auto px-3 py-1 shadow-lg shadow-gray-500/50 bg-cyan text-white rounded-lg text-[15px] cursor-pointer active:scale-[.97] hover:bg-[#81ecec]"
 				>
 					下 载 图 片
 				</button>

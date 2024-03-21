@@ -1,12 +1,14 @@
 from rest_framework import serializers
 
-from .models import Origin,Result
+from .models import Origin, Result
+from accounts.serializers import UserSerializer
+
 
 class ResultSerializer(serializers.ModelSerializer):
-
+    created_by = UserSerializer(read_only=True)
     class Meta:
         model = Result
-        fields = ('modified_pic')
+        fields = ('modified_pic','like_count','created_by')
 
 
 class OriginSerializer(serializers.ModelSerializer):

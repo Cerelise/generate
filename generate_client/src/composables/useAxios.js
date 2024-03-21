@@ -21,6 +21,7 @@ function useAxios() {
 
 	instance.interceptors.response.use(
 		(response) => {
+			console.log(response.status);
 			return response.data;
 		},
 		(error) => {

@@ -11,7 +11,7 @@ const histories = ref([]);
 async function getData() {
 	let user_id = userStore.user.id;
 	console.log(user_id);
-	await axios.get(`/generate/${user_id}`).then((res) => {
+	await axios.get(`/generate/origin-list?id=${user_id}`).then((res) => {
 		histories.value = res;
 		console.log(histories.value);
 	});
@@ -36,7 +36,7 @@ onMounted(() => {
 				</p>
 			</div>
 			<button
-				class="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-cyan rounded-xl hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-offset-1"
+				class="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-cyan rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-1 hover:bg-[#81ecec]"
 			>
 				<Icon class="w-6 h-6 fill-current" icon="ic:baseline-plus" />
 				<span class="text-sm font-semibold tracking-wide">新建</span>
@@ -47,28 +47,28 @@ onMounted(() => {
 			<table class="max-w-5xl mx-auto table-auto">
 				<thead class="justify-between">
 					<tr class="bg-[#f3f4f6]">
-						<th class="px-16 py-2">
-							<span class="font-semibold">Picture</span>
+						<th class="px-10 py-2">
+							<span class="font-semibold">原始图片</span>
 						</th>
 
 						<th class="px-16 py-2">
-							<span class="font-semibold">Name</span>
+							<span class="font-semibold">图片名</span>
+						</th>
+
+						<th class="px-10 py-2">
+							<span class="font-semibold">修复后图片</span>
 						</th>
 
 						<th class="px-16 py-2">
-							<span class="font-semibold">NewPic</span>
+							<span class="font-semibold">状态</span>
+						</th>
+
+						<th class="px-10 py-2">
+							<span class="font-semibold">日期</span>
 						</th>
 
 						<th class="px-16 py-2">
-							<span class="font-semibold">status</span>
-						</th>
-
-						<th class="px-16 py-2">
-							<span class="font-semibold">Date</span>
-						</th>
-
-						<th class="px-16 py-2">
-							<span class="font-semibold">Setting</span>
+							<span class="font-semibold">操作</span>
 						</th>
 					</tr>
 				</thead>
@@ -102,17 +102,17 @@ onMounted(() => {
 								v-if="history.is_modify == true"
 								class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md"
 							>
-								<span>success</span>
+								<span>修复成功</span>
 							</div>
 							<div
 								v-else
 								class="relative grid items-center text-center font-sans font-bold uppercase whitespace-nowrap select-none bg-[#ef4444] text-[#7f1d1d] py-1 px-2 text-xs rounded-md"
 								style="opacity: 1"
 							>
-								<span>failed</span>
+								<span>修复失败</span>
 							</div>
 						</td>
-						<td class="px-16 py-2">
+						<td class="px-10 py-2">
 							<span>{{ history.created_at.split("T")[0] }}</span>
 						</td>
 

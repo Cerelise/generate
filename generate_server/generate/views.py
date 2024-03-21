@@ -1,18 +1,59 @@
+from accounts.serializers import UserSerializer
+from django.core.files import File
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import APIView, api_view, permission_classes
-from rest_framework.permissions import (IsAuthenticated,
+from rest_framework.permissions import (AllowAny, IsAuthenticated,
                                         IsAuthenticatedOrReadOnly)
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Origin,Result
+from .models import Origin, Result
 from .permissions import CreaterOrReadOnly
-from .serializers import OriginSerializer,ResultSerializer
-from accounts.serializers import UserSerializer
+from .serializers import OriginSerializer, ResultSerializer
 
-from django.core.files import File
-from django.shortcuts import get_object_or_404
+
+# 获取当前用户的上传记录
+class UserPictureListView(APIView):
+    
+    serializer_class = OriginSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self,request,user_id:str):
+        user_pic = Origin.objects.filter(created_by=user_id)
+        serializer = OriginSerializer(user_pic,many=True)
+
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def getUserPic(request):
+    user_id = request.GET.get('id')
+    user_pic_list = Origin.objects.filter(created_by=user_id)
+    serializer = OriginSerializer(user_pic_list,many=True)
+
+    return Response(data=serializer.data,status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def getAllResult(request):
+  
+  res_list = Result.objects.all()
+  serializer = ResultSerializer(res_list,many=True)
+
+  return Response(data=serializer.data,status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addLike(request,res_id):
+
+    cur_res = Result.objects.get(id=res_id)
+
+    cur_res.like_count += 1
+    cur_res.save()
+
+    return Response(data={'message':"点赞成功"},status=status.HTTP_200_OK)
+
 
 # 获取当前用户信息
 @api_view(http_method_names=['GET'])
@@ -25,17 +66,7 @@ def get_user_for_current(request: Request):
 
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-# 获取当前用户的上传记录
-class UserPictureListView(APIView):
-    
-    serializer_class = OriginSerializer
-    permission_classes = [IsAuthenticated]
 
-    def get(self,request,user_id:str):
-        user_pic = Origin.objects.filter(created_by=user_id)
-        serializer = OriginSerializer(user_pic,many=True)
-
-        return Response(serializer.data,status=status.HTTP_200_OK)
 # 查看全部历史记录、上传并处理单个原图
 class PictureListCreateView(APIView):
 
@@ -118,4 +149,4 @@ class RecordRetrieveUpdateDeleteView(APIView):
 
         detail.delete()
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_200_OK)

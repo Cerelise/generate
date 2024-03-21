@@ -19,7 +19,7 @@ export const useUserStore = defineStore("user", {
 			const token = localStorage.getItem("user.token");
 
 			if (token) {
-				axios.get(`auth/login/`).then((res) => {
+				axios.get(`auth/login`).then((res) => {
 					this.user.id = res.id;
 					this.user.email = res.email;
 					this.user.avatar = res.avatar;

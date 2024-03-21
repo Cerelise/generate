@@ -1,8 +1,8 @@
 import uuid
-import datetime
 
-from django.db import models
 from accounts.models import User
+from django.db import models
+
 
 class Origin(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4)
@@ -22,6 +22,7 @@ class Result(models.Model):
     modified_pic = models.ImageField(upload_to='result')
     created_by = models.ForeignKey(User,related_name='result',on_delete=models.CASCADE)
     origin = models.OneToOneField(Origin,related_name='origin',on_delete=models.CASCADE)
+    like_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     # def save(self,*args,**kwargs):

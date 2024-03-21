@@ -6,6 +6,8 @@ import DownloadView from "@/views/DownloadView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
+import CreateAgainView from "@/views/CreateAgainView.vue";
+import ShareView from "@/views/ShareView.vue";
 // import TestView from "@/views/TestView.vue";
 
 const router = createRouter({
@@ -20,6 +22,16 @@ const router = createRouter({
 			path: "/repair",
 			name: "repair",
 			component: RepairView,
+		},
+		{
+			path: "/create",
+			name: "create",
+			component: CreateAgainView,
+		},
+		{
+			path: "/share",
+			name: "share",
+			component: ShareView,
 		},
 		{
 			path: "/history",

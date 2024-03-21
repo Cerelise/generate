@@ -20,7 +20,7 @@ function logout() {
 				<TheAvatar :src="userStore.user.avatar" :width="186" :height="186" />
 			</div>
 			<div
-				class="profile text-xl text-center lg:max-w-md lg:mt-12 lg:text-left"
+				class="profile py-3 text-xl text-center lg:max-w-md lg:mt-12 lg:text-left"
 			>
 				<p class="name flex justify-center gap-5 lg:justify-start">
 					<span>{{ userStore.user.username }}</span>

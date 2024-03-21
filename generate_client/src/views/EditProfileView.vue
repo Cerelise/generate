@@ -56,7 +56,7 @@ function submitForm() {
 	formData.append("description", form.description);
 	formData.append("phone", form.phone);
 
-	axios.post("auth/edit/", formData, {}).then((res) => {
+	axios.post("auth/edit", formData, {}).then((res) => {
 		console.log(res);
 
 		userStore.setUserInfo({

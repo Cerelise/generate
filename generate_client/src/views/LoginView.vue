@@ -3,6 +3,7 @@ import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../stores/user";
 import useAxios from "../composables/useAxios";
+import TheButton from "@/components/TheButton.vue";
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -18,7 +19,7 @@ async function signup() {
 	userForm.append("email", user.email);
 	userForm.append("password", user.password);
 	console.log(userForm);
-	await axios.post(`auth/signup/`, userForm).then((res) => {
+	await axios.post(`auth/signup`, userForm).then((res) => {
 		console.log(res);
 		if ((res.message = "User Created Successfully")) {
 			router.push({ name: "login" });
@@ -30,8 +31,9 @@ async function login() {
 	const userForm = new FormData();
 	userForm.append("email", user.email);
 	userForm.append("password", user.password);
-	await axios.post(`auth/login/`, userForm).then((res) => {
+	await axios.post(`auth/login`, userForm).then((res) => {
 		console.log(res);
+		console.log(res.status);
 		userStore.setToken(res.tokens.access);
 		userStore.initStore();
 		router.push({ name: "home" });
@@ -58,7 +60,8 @@ const toLogin = () => {
 					<span>请补充下面的信息</span>
 					<input type="email" placeholder="Email" v-model="user.email" />
 					<input type="password" placeholder="密码" v-model="user.password" />
-					<button @click="signup">注 册</button>
+					<!-- <button @click="signup">注 册</button> -->
+					<TheButton @click="signup">注&nbsp;册</TheButton>
 				</div>
 			</div>
 			<div class="form-container sign-in">
@@ -68,7 +71,7 @@ const toLogin = () => {
 					<input type="email" v-model="user.email" placeholder="Email" />
 					<input type="password" v-model="user.password" placeholder="密码" />
 					<a href="#">忘记密码？</a>
-					<button @click="login">登 录</button>
+					<TheButton @click="login">登&nbsp;录</TheButton>
 				</div>
 			</div>
 			<div class="toggle-container">
@@ -76,12 +79,12 @@ const toLogin = () => {
 					<div class="toggle-panel toggle-left">
 						<h1>欢迎回来！</h1>
 						<p>输入您的个人详细信息以使用网站的所有功能。</p>
-						<button class="hide" @click="toLogin">去登录</button>
+						<TheButton class="hide" @click="toLogin">去登录</TheButton>
 					</div>
 					<div class="toggle-panel toggle-right">
 						<h1>你好，新朋友！</h1>
 						<p>使用您的个人详细信息注册一个新账号用于使用该网站的所有功能</p>
-						<button class="hide" @click="toRegister">去注册</button>
+						<TheButton class="hide" @click="toRegister">去注册</TheButton>
 					</div>
 				</div>
 			</div>
@@ -127,7 +130,7 @@ const toLogin = () => {
 	margin: 15px 0 10px;
 }
 
-.box button {
+/* .box button {
 	background-color: #6adede;
 	color: #fff;
 	font-size: 12px;
@@ -139,11 +142,19 @@ const toLogin = () => {
 	text-transform: uppercase;
 	margin-top: 10px;
 	cursor: pointer;
+} */
+.box button:hover {
+	background-color: #00cec9;
 }
 
 .box button.hide {
 	background-color: transparent;
 	border-color: #fff;
+}
+
+.box button.hide:hover {
+	background-color: #fff;
+	color: #000000;
 }
 
 .box .form {

@@ -1,23 +1,28 @@
 <template>
 	<footer class="mx-6 p-5 pb-15">
 		<div
-			class="container mx-auto w-full border-t border-slate-400/20 flex items-center justify-between gap-10"
+			class="container py-5 mx-auto w-full border-t border-slate-400/20 flex items-center justify-between gap-10"
 		>
-			<p class="mt-2 flex items-center gap-1 text-[0.8125rem] leading-6">
-				<img
-					class="w-[20vw] h-[5vh] lg:w-[10vw]"
-					src="../assets/img/toplog1.png"
-					alt=""
-				/>
+			<p
+				class="w-[10vw] h-[2vh] flex items-center gap-1 text-[0.8125rem] leading-6"
+			>
+				<img class="object-cover" src="../assets/img/toplog1.png" alt="" />
 			</p>
 
 			<a
 				class="mt-2 rounded-lg font-semibold transition flex items-center gap-1 text-[0.8125rem] leading-6 py-1 px-1.5 -my-1 -mx-1.5"
+				href="https://cdn.jsdelivr.net/gh/W9adorer/typora@main/image/vip.png"
+			>
+				<div class="text-sm leading-6">VIP 解锁更多功能</div>
+			</a>
+
+			<a
+				class="rounded-lg font-semibold transition flex items-center gap-1 text-[0.8125rem] leading-6 py-1 px-1.5 -my-1 -mx-1.5"
 				href="#"
 			>
 				<svg
 					viewBox="0 0 20 20"
-					class="w-10 fill-slate-400"
+					class="w-10 fill-slate-400 mt-2"
 					fill="currentColor"
 					aria-hidden="true"
 					height="30"

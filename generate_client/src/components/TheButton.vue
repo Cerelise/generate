@@ -14,15 +14,21 @@ defineProps({
 </script>
 <style scoped>
 .button {
+	/* background-color: #6adede; */
+	color: #fff;
+	font-size: 15px;
+	padding: 10px 45px;
+	border: 1px solid transparent;
 	border-radius: 8px;
-	padding: 10px 32px;
-	border: none;
-	color: white;
-	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	margin-top: 10px;
+	cursor: pointer;
 }
 
 .button.primary {
-	@apply bg-cyan;
+	background: #81ecec;
 }
 
 .button.reverse {
