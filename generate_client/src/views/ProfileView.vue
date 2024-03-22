@@ -15,12 +15,12 @@ function logout() {
 
 <template>
 	<section class="container mx-auto bg-gray-100">
-		<div class="flex flex-col lg:flex-row">
-			<div class="profile-photo space-y-10 mt-10 mb-20 lg:mt-16 lg:w-1/2">
+		<div class="flex flex-col lg:flex-row lg:h-[70vh] lg:items-center">
+			<div class="profile-photo space-y-10 mt-8 lg:mt-10 lg:w-1/2">
 				<TheAvatar :src="userStore.user.avatar" :width="186" :height="186" />
 			</div>
 			<div
-				class="profile py-3 text-xl text-center lg:max-w-md lg:mt-12 lg:text-left"
+				class="profile py-3 text-xl text-center lg:max-w-md lg:mt-10 lg:text-left"
 			>
 				<p class="name flex justify-center gap-5 lg:justify-start">
 					<span>{{ userStore.user.username }}</span>

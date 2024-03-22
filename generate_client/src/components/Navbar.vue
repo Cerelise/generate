@@ -117,20 +117,24 @@ function navToggle() {
 			<div
 				class="flex flex-col items-center justify-center w-full space-y-6 font-bold text-white rounded-sm"
 			>
-				<router-link to="/" class="w-full text-center">首页</router-link>
-				<router-link to="/repair" class="w-full text-center"
+				<router-link to="/" class="hamburger-item w-full text-center py-2"
+					>首页</router-link
+				>
+				<router-link to="/repair" class="hamburger-item w-full text-center py-2"
 					>修复图片</router-link
 				>
-				<router-link to="/create" class="w-full text-center"
+				<router-link to="/create" class="hamburger-item w-full text-center py-2"
 					>二次创作</router-link
 				>
-				<router-link to="/share" class="w-full text-center"
+				<router-link to="/share" class="hamburger-item w-full text-center py-2"
 					>共享社区</router-link
 				>
-				<router-link to="/history" class="w-full text-center"
+				<router-link to="/history" class="hamburger-item -full text-center py-2"
 					>历史记录</router-link
 				>
-				<router-link to="/download" class="w-full text-center"
+				<router-link
+					to="/download"
+					class="hamburger-item w-full text-center py-2"
 					>下载</router-link
 				>
 				<div v-if="userStore.user.isAuthenticated" style="display: none"></div>
@@ -153,5 +157,11 @@ function navToggle() {
 	height: 2.8rem;
 	border-radius: 50%;
 	overflow: hidden;
+}
+
+.hamburger-item:hover {
+	@apply p-2 rounded-lg;
+	width: 60%;
+	background-color: #2acfcf;
 }
 </style>

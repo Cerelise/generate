@@ -95,7 +95,7 @@ function submitForm() {
 			<label for="nickname">昵称：</label>
 			<input type="text" v-model="form.username" />
 			<label for="intro">简介：</label>
-			<textarea rows="12" v-model="form.description"></textarea>
+			<textarea rows="5" v-model="form.description"></textarea>
 			<label for="phone">手机号：</label>
 			<input type="text" v-model="form.phone" />
 			<div class="actions">
@@ -132,6 +132,14 @@ function submitForm() {
 	justify-self: end;
 	position: relative;
 	top: 2px;
+}
+
+.profileForm input:focus {
+	outline: none;
+}
+
+.profileForm textarea:focus {
+	outline: none;
 }
 
 .profileForm .actions {

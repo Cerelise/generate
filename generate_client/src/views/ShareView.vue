@@ -8,10 +8,17 @@ import { ref, onMounted } from "vue";
 const axios = useAxios();
 const resultList = ref([]);
 
-async function getData() {
-	await axios.get(`/generate/result`).then((res) => {
+function getData() {
+	axios.get(`/generate/result`).then((res) => {
 		resultList.value = res;
-		console.log(resultList.value);
+		// console.log(resultList.value);
+	});
+}
+
+function toggleFavorite(resId) {
+	axios.post(`/generate/result/like/${resId}`).then((res) => {
+		// console.log(res);
+		getData();
 	});
 }
 
@@ -48,7 +55,10 @@ onMounted(() => {
 									{{ item.created_by.username }}
 								</p>
 							</div>
-							<div class="flex items-center gap-1">
+							<div
+								class="flex items-center gap-1"
+								@click="toggleFavorite(item.id)"
+							>
 								<Icon icon="icon-park-outline:like" />
 								<p class="text-md text-gray-400">{{ item.like_count }}</p>
 							</div>

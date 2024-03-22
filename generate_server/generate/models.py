@@ -22,6 +22,7 @@ class Result(models.Model):
     modified_pic = models.ImageField(upload_to='result')
     created_by = models.ForeignKey(User,related_name='result',on_delete=models.CASCADE)
     origin = models.OneToOneField(Origin,related_name='origin',on_delete=models.CASCADE)
+    favorited = models.ManyToManyField(User,related_name='favorites')
     like_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 

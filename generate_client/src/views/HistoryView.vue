@@ -8,12 +8,19 @@ const axios = useAxios();
 const userStore = useUserStore();
 const histories = ref([]);
 
-async function getData() {
+function getData() {
 	let user_id = userStore.user.id;
-	console.log(user_id);
-	await axios.get(`/generate/origin-list?id=${user_id}`).then((res) => {
+	// console.log(user_id);
+	axios.get(`/generate/origin-list?id=${user_id}`).then((res) => {
 		histories.value = res;
-		console.log(histories.value);
+		// console.log(histories.value);
+	});
+}
+
+function deleteDetail(originId) {
+	axios.delete(`/generate/record/${originId}`).then((res) => {
+		// console.log(res);
+		getData();
 	});
 }
 
@@ -36,10 +43,12 @@ onMounted(() => {
 				</p>
 			</div>
 			<button
-				class="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-cyan rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-1 hover:bg-[#81ecec]"
+				class="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-cyan rounded-xl outline-none focus:ring-2 focus:ring-offset-1 hover:bg-[#81ecec]"
 			>
 				<Icon class="w-6 h-6 fill-current" icon="ic:baseline-plus" />
-				<span class="text-sm font-semibold tracking-wide">新建</span>
+				<router-link class="text-sm font-semibold tracking-wide" to="/repair"
+					>新建</router-link
+				>
 			</button>
 		</div>
 
@@ -47,27 +56,27 @@ onMounted(() => {
 			<table class="max-w-5xl mx-auto table-auto">
 				<thead class="justify-between">
 					<tr class="bg-[#f3f4f6]">
-						<th class="px-10 py-2">
+						<th class="px-12 py-2">
 							<span class="font-semibold">原始图片</span>
 						</th>
 
-						<th class="px-16 py-2">
+						<th class="px-4 py-2">
 							<span class="font-semibold">图片名</span>
 						</th>
 
-						<th class="px-10 py-2">
+						<th class="px-12 py-2">
 							<span class="font-semibold">修复后图片</span>
 						</th>
 
-						<th class="px-16 py-2">
+						<th class="px-4 py-2">
 							<span class="font-semibold">状态</span>
 						</th>
 
-						<th class="px-10 py-2">
+						<th class="px-4 py-2">
 							<span class="font-semibold">日期</span>
 						</th>
 
-						<th class="px-16 py-2">
+						<th class="px-8 py-2">
 							<span class="font-semibold">操作</span>
 						</th>
 					</tr>
@@ -78,26 +87,18 @@ onMounted(() => {
 						class="bg-white border-b-2 border-gray-200 hover:bg-slate-200 transition-colors group"
 					>
 						<td class="px-4 py-2 flex flex-row items-center">
-							<img
-								class="h-18 w-18 object-cover"
-								:src="history.picture"
-								alt=""
-							/>
+							<img class="w-[15vw] h-[20vh]" :src="history.picture" alt="" />
 						</td>
 
 						<td>
-							<span class="px-16 py-2 font-semibold">{{ history.name }}</span>
+							<span class="px-4 py-2 font-semibold">{{ history.name }}</span>
 						</td>
 
 						<td class="px-4 py-2 flex flex-row items-center">
-							<img
-								class="h-15 w-15 object-cover"
-								:src="history.result"
-								alt=""
-							/>
+							<img class="w-[15vw] h-[20vh]" :src="history.result" alt="" />
 						</td>
 
-						<td class="px-16 py-2">
+						<td class="px-4 py-2">
 							<div
 								v-if="history.is_modify == true"
 								class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md"
@@ -112,30 +113,15 @@ onMounted(() => {
 								<span>修复失败</span>
 							</div>
 						</td>
-						<td class="px-10 py-2">
+						<td class="px-4 py-2">
 							<span>{{ history.created_at.split("T")[0] }}</span>
 						</td>
 
-						<td class="px-16 py-2">
-							<span class="text-yellow-500 flex">
+						<td class="px-12 py-2">
+							<span class="flex" @click="deleteDetail(history.id)">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									class="h-5 w-5 text-green-700 mx-2"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-								>
-									<path
-										d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-									/>
-									<path
-										fill-rule="evenodd"
-										d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-5 w-5 text-red-700"
+									class="h-5 w-5 text-orange-700"
 									viewBox="0 0 20 20"
 									fill="currentColor"
 								>

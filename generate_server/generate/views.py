@@ -45,14 +45,23 @@ def getAllResult(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def addLike(request,res_id):
+def toggleFavorite(request,res_id):
 
     cur_res = Result.objects.get(id=res_id)
 
-    cur_res.like_count += 1
-    cur_res.save()
+    if request.user in cur_res.favorited.all():
+        cur_res.favorited.remove(request.user)
+        cur_res.like_count -= 1
+        cur_res.save()
 
-    return Response(data={'message':"点赞成功"},status=status.HTTP_200_OK)
+        return Response(data={'is_favorite':False},status=status.HTTP_200_OK)
+
+    else:
+        cur_res.favorited.add(request.user)
+        cur_res.like_count += 1
+        cur_res.save()
+        return Response(data={'is_favorite':True},status=status.HTTP_200_OK)
+      
 
 
 # 获取当前用户信息
@@ -149,4 +158,4 @@ class RecordRetrieveUpdateDeleteView(APIView):
 
         detail.delete()
 
-        return Response(status=status.HTTP_200_OK)
+        return Response({'message':'删除成功'},status=status.HTTP_200_OK)
