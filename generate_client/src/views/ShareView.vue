@@ -11,7 +11,7 @@ const resultList = ref([]);
 function getData() {
 	axios.get(`/generate/result`).then((res) => {
 		resultList.value = res;
-		// console.log(resultList.value);
+		console.log(resultList.value);
 	});
 }
 
@@ -46,7 +46,7 @@ onMounted(() => {
 				<div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 					<div v-for="item in resultList" class="cursor-pointer">
 						<div class="relative overflow-hidden aspect-square rounded-xl">
-							<img :src="`http://127.0.0.1:8000/${item.modified_pic}`" alt="" />
+							<img :src="item.modified_pic" alt="" />
 						</div>
 						<div class="mt-4 flex justify-between">
 							<div class="flex gap-2">

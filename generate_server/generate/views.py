@@ -9,6 +9,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from accounts.models import User
+
 from .models import Origin, Result
 from .permissions import CreaterOrReadOnly
 from .serializers import OriginSerializer, ResultSerializer
@@ -29,6 +31,9 @@ class UserPictureListView(APIView):
 @api_view(['GET'])
 def getUserPic(request):
     user_id = request.GET.get('id')
+    cur_user = User.objects.get(id=user_id)
+    cur_user_like = cur_user.favorites.all()
+    print(cur_user_like)
     user_pic_list = Origin.objects.filter(created_by=user_id)
     serializer = OriginSerializer(user_pic_list,many=True)
 
@@ -81,12 +86,6 @@ class PictureListCreateView(APIView):
 
     serializer_class = OriginSerializer
     permission_classes = [CreaterOrReadOnly]
-
-
-    def get(self,request,*args,**kwargs):
-        origin = Origin.objects.all()
-        serializer = self.serializer_class(instance=origin,many=True)
-        return Response(data=serializer.data,status=status.HTTP_200_OK)
     
     def post(self,request,*args,**kwargs):
         image_file = request.FILES['picture']

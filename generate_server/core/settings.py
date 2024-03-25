@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-!2zf@4ypffj7)i7#00xza71u5v!6e$*7#4h+k31dk@rzo!da&c
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -116,5 +116,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]  # 前端地址
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173","http://114.116.195.47:80"]  # 前端地址
 
